@@ -1,11 +1,14 @@
 import './CampoText.css'
 
-const CampoText = () => {
+const CampoText = (props) => {
+
+    const placeholderMod = `${props.placeholder}...`
+
     return (
         <div className="campo-text">
-            <label>Nome</label>
+            <label>{props.label}</label>
             <input 
-            placeholder='Digite seu nome'
+            placeholder={placeholderMod}
             />
         </div>
     )

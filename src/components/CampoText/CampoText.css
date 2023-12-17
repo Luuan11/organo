@@ -16,5 +16,6 @@
     font-size: 24px;
     padding: 24px;
     border: none;
+    border-radius: 8px;
     outline: none;
 }
