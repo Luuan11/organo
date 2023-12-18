@@ -9,6 +9,7 @@ const CampoText = (props) => {
             <label>{props.label}</label>
             <input 
             placeholder={placeholderMod}
+            required={props.required}
             />
         </div>
     )
