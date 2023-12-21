@@ -1,6 +1,10 @@
 import './CampoText.css'
 
+import { useState } from 'react'
+
 const CampoText = (props) => {
+
+    const [valor, setValor] = useState("")
 
     const onType = (event) => {
         valor = event.target.value
