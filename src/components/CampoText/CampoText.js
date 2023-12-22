@@ -5,7 +5,7 @@ import './CampoText.css'
 const CampoText = (props) => {
 
     const onType = (event) => {
-        props.onType(event.target.value)
+        props.onTyped(event.target.value)
     }
 
     const placeholderMod = `${props.placeholder}...`
