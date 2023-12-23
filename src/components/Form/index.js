@@ -6,7 +6,7 @@ import ListaSuspensa from '../ListaSuspensa';
 
 import './Form.css'
 
-const Form = () => {
+const Form = (props) => {
 
     const times = [
         'Programação',
@@ -26,6 +26,13 @@ const Form = () => {
     const salvar = (event) => {
         event.preventDefault()
         // console.log('deu certo!')
+
+        props.saveFunc({
+            nome,
+            cargo,
+            imagem,
+            time
+        })
     }
 
     return (
