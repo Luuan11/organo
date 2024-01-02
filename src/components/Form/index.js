@@ -8,16 +8,6 @@ import './Form.css'
 
 const Form = (props) => {
 
-    const times = [
-        'Programação',
-        'Front-End',
-        'Data Science',
-        'DevOps',
-        'UX e Design',
-        'Mobile',
-        'Inovação e Gestão'
-    ]
-
     const [nome, setNome] = useState('') 
     const [cargo, setCargo] = useState('') 
     const [imagem, setImagem] = useState('')
@@ -55,7 +45,7 @@ const Form = (props) => {
                 onTyped={valor=> setImagem(valor)}
                 />
 
-                <ListaSuspensa label="Item" itens={times} required={true}
+                <ListaSuspensa label="Item" itens={props.times} required={true}
                 valor={time}
                 onTyped={valor=> setTime(valor)}
                 />

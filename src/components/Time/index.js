@@ -1,9 +1,12 @@
 import "./Time.css"
 
 const Time = (props) => {
+    const corSegundaria =  { backgroundColor: props.corSegundaria }
+    const corPrimaria = { borderColor: props.corPrimaria }
+
     return (
-        <section className="time">
-            <h3>{props.nome}</h3>
+        <section className="time" style={corSegundaria}>
+            <h3 style={corPrimaria}>{props.nome}</h3>
         </section>
     )
 }
