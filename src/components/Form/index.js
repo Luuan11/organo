@@ -16,13 +16,16 @@ const Form = (props) => {
     const salvar = (event) => {
         event.preventDefault()
         // console.log('deu certo!')
-
         props.saveFunc({
             nome,
             cargo,
             imagem,
             time
         })
+        setNome('')
+        setCargo('')
+        setImagem('')
+        setTime('')
     }
 
     return (
