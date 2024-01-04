@@ -16,7 +16,7 @@ const Form = (props) => {
     const salvar = (event) => {
         event.preventDefault()
         // console.log('deu certo!')
-        props.saveFunc({
+        props.colaboradorCadastrado({
             nome,
             cargo,
             imagem,
