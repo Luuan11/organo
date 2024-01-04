@@ -49,6 +49,7 @@ function App() {
 
   const novoColaborador = (colaborador) =>{
     // console.log(colaborador)
+    // debugger
     setColaboradores([...colaboradores,colaborador])
   }
 
