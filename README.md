@@ -10,4 +10,3 @@ esse projeto foi desenvolvido com as seguintes tecnologias:
 
 :construction: Project in Building... :construction:
 
-preparing the footer
