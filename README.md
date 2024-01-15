@@ -1,4 +1,5 @@
 ## 💬 Sobre
+Projeto de criação de cards para diversos setores de TI
 
 ## 💡 Tecnologias:
 
