@@ -8,43 +8,36 @@ import Footer from './components/Footer';
 
 function App() {
 
-  const times = [
+  const [times, setTimes] = useState([
     {
-      nome: 'Programação',
-      corPrimaria: '#57C278',
-      corSegundaria: '#D9F7E9',
+    nome: 'Programação',
+    cor : '#D9F7E9',
     },
     {
-      nome: 'Front-End',
-      corPrimaria: '#82CFFA',
-      corSegundaria: '#E8F8FF',
+    nome: 'Front-End',
+    cor : '#E8F8FF',
     },
     {
-      nome: 'Data Science',
-      corPrimaria: '#A6D157',
-      corSegundaria: '#F0F8E2',
+    nome: 'Data Science',
+    cor : '#F0F8E2',
     },
     {
-      nome: 'DevOps',
-      corPrimaria: '#E06B69',
-      corSegundaria: '#FDE7E8',
+    nome: 'DevOps',
+    cor : '#FDE7E8',
     },
     {
-      nome: 'UX e Design',
-      corPrimaria: '#DB6EBF',
-      corSegundaria: '#FAE9F5',
+    nome: 'UX e Design',
+    cor : '#FAE9F5',
     },
     {
-      nome: 'Mobile',
-      corPrimaria: '#FFBA05',
-      corSegundaria: '#FFF4D9',
+    nome: 'Mobile',
+    cor : '#FFF4D9',
     },
     {
-      nome: 'Inovação e Gestão',
-      corPrimaria: '#FF8A29',
-      corSegundaria: '#FFEEDF',
+    nome: 'Inovação e Gestão',
+    cor : '#FFEEDF',
     },
-  ]
+  ])
 
   const inicial = [
     {
@@ -195,8 +188,17 @@ function App() {
 
   const [colaboradores, setColaboradores] = useState(inicial)
 
+  function ChangeColor(cor, nome){
+    setTimes(times.map(time => {
+      if(time.nome === nome) {
+        time.cor = cor;
+      }
+      return time;
+    }))
+  }
+
   function deleteColaborador() {
-    console.log("deletado");
+    // console.log("deletado");
   }
 
   return (
@@ -208,12 +210,13 @@ function App() {
       <section className='times'>
       <h1>Minha organização</h1>
         {times.map((time, indice) => 
-        <Time 
-        key={indice} 
-        time={time} 
-        colaboradores={colaboradores.filter(colaborador => colaborador.time === time.nome)}
-        aoDeletar={deleteColaborador()}
-        />
+          <Time 
+              key={indice} 
+              mudarCor={ChangeColor}
+              time={time} 
+              colaboradores={colaboradores.filter(colaborador => colaborador.time === time.nome)}
+              aoDeletar={deleteColaborador()}
+          />
         )}
       </section>
     
