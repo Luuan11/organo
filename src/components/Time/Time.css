@@ -18,7 +18,7 @@
     flex-wrap: wrap;
 }
 
-.time .changeColor{
+.time .input-changeColor{
     position: absolute;
     top: 20px;
     right: 50px;
