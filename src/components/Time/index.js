@@ -8,22 +8,18 @@ const Time = ({ time, colaboradores, aoDeletar, mudarCor }) => {
     // const corPrimaria = { borderColor: time.corPrimaria }
 
     return (
-        colaboradores.length > 0) && <section className="time" style={backgroundColorRGBA}>
+        colaboradores.length > 0 && <section className="time" style={backgroundColorRGBA}>
             <input value={time.cor} onChange={event => mudarCor(event.target.value, time.id)} type="color" className="input-changeColor" />
             <h3 style={{ borderColor: time.cor }}>{time.nome}</h3>
             <div className='colaboradores'>
-            {/* <div className="deletar"> */}
                 {colaboradores.map((colaborador, indice) => 
                 <Colaborador key={indice} 
                 colaborador={colaborador} 
                 corBackground={time.cor}
-                aoDeletar ={aoDeletar} 
-
-                />
-                )}
-            {/* </div> */}
+                aoDeletar ={aoDeletar} />)}
             </div>
         </section>
+    )
 }
 
 export default Time

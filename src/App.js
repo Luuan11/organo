@@ -12,39 +12,39 @@ function App() {
     {
       id: uuidv4(),
       nome: 'Programação',
-      cor : '#D9F7E9',
+      cor: '#57C278'
     },
     {
       id: uuidv4(),
       nome: 'Front-End',
-      cor : '#E8F8FF',
+      cor: '#82CFFA'
     },
     {
       id: uuidv4(),
       nome: 'Data Science',
-      cor : '#F0F8E2',
+      cor: '#A6D157'
     },
     {
       id: uuidv4(),
-      nome: 'DevOps',
-      cor : '#FDE7E8',
+      nome: 'Devops',
+      cor: '#E06B69'
     },
     {
       id: uuidv4(),
       nome: 'UX e Design',
-      cor : '#FAE9F5',
+      cor: '#DB6EBF'
     },
     {
       id: uuidv4(),
       nome: 'Mobile',
-      cor : '#FFF4D9',
+      cor: '#FFBA05'
     },
     {
       id: uuidv4(),
       nome: 'Inovação e Gestão',
-      cor : '#FFEEDF',
+      cor: '#FF8A29'
     },
-  ])
+  ]);
 
   const inicial = [
     {
@@ -225,11 +225,11 @@ function App() {
         time.cor = cor;
       }
       return time;
-    }))
+    }));
   }
 
-  function deleteColaborador() {
-    // console.log("deletado");
+  function deleteColaborador(id) {
+    setColaboradores(colaboradores.filter(colaborador => colaborador.id !== id))
   }
 
   return (
@@ -240,17 +240,15 @@ function App() {
       
       <section className='times'>
       <h1>Minha organização</h1>
-        {times.map((time, indice) => 
-          <Time 
-              key={indice} 
-              mudarCor={ChangeColor}
-              time={time} 
-              colaboradores={colaboradores.filter(colaborador => colaborador.time === time.nome)}
-              aoDeletar={deleteColaborador()}
-          />
-        )}
+      {times.map((time, indice) => 
+      <Time 
+        mudarCor={ChangeColor} 
+        key={indice} 
+        time={time} 
+        colaboradores={colaboradores.filter(colaborador => colaborador.time === time.nome)} 
+        aoDeletar={deleteColaborador} 
+      />)}
       </section>
-    
       <Footer />
 
     </div>
