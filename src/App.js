@@ -232,22 +232,30 @@ function App() {
     setColaboradores(colaboradores.filter(colaborador => colaborador.id !== id))
   }
 
+  function cadastrarTime(novoTime){
+    setTimes([...times, {...novoTime, id: uuidv4() }])
+  }
+
   return (
     <div className="App">
 
       <Banner />
-      <Form times={times.map(time => time.nome)} colaboradorCadastrado={colaborador => setColaboradores([...colaboradores, colaborador])} />
+      <Form 
+        cadastrarTime={cadastrarTime}
+        times={times.map(time => time.nome)} 
+        aoCadastrar={colaborador => setColaboradores([...colaboradores, colaborador])}
+      />
       
       <section className='times'>
-      <h1>Minha organização</h1>
-      {times.map((time, indice) => 
-      <Time 
-        mudarCor={ChangeColor} 
-        key={indice} 
-        time={time} 
-        colaboradores={colaboradores.filter(colaborador => colaborador.time === time.nome)} 
-        aoDeletar={deleteColaborador} 
-      />)}
+        <h1>Minha organização</h1>
+          {times.map((time, indice) => 
+          <Time 
+            mudarCor={ChangeColor} 
+            key={indice} 
+            time={time} 
+            colaboradores={colaboradores.filter(colaborador => colaborador.time === time.nome)} 
+            aoDeletar={deleteColaborador} 
+          />)}
       </section>
       <Footer />
 
