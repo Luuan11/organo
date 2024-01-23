@@ -87,8 +87,9 @@ const Form = ({aoCadastrar, times ,cadastrarTime}) => {
                 />
 
                 <CampoText 
-                    label="Cargo" 
-                    placeholder="Digite a cor do time" 
+                    label="Cor"
+                    type="color"
+                    placeholder="Digite a cor do time"
                     required={true}
                     valor={corTime}
                     onTyped={valor=> setCorTime(valor)}

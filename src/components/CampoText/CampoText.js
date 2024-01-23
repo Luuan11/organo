@@ -2,7 +2,7 @@ import './CampoText.css'
 
 // import { useState } from 'react'
 
-const CampoText = (props) => {
+const CampoText = (props ) => {
 
     const onType = (event) => {
         props.onTyped(event.target.value)
@@ -14,10 +14,11 @@ const CampoText = (props) => {
         <div className="campo-text">
             <label>{props.label}</label>
             <input 
-            value={props.valor}
-            onChange={onType}
-            placeholder={placeholderMod}
-            required={props.required}
+                value={props.valor}
+                onChange={onType}
+                placeholder={placeholderMod}
+                required={props.required}
+                type={props.type}
             />
         </div>
     )
