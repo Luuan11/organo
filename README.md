@@ -1,9 +1,9 @@
-## 💬 Sobre
-Projeto de criação de cards para diversos setores de TI, permitindo criar, deletar, editar os times e favoritar os colaboradores!
-
 ![preview](https://github.com/Luuan11/organo/assets/79935555/c950c13f-e4b6-4dac-b1b9-77adac24f2a2)
 
 ## <p align="center"> <a href="https://organo-app-mocha.vercel.app/">Clique aqui para ver meu projeto!</a> </p>
+
+## 💬 Sobre
+Projeto de criação de cards para diversos setores de TI, permitindo criar, deletar, editar os times e favoritar os colaboradores!
 
 ## 💡 Tecnologias:
 
