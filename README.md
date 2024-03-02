@@ -9,8 +9,8 @@ Projeto de criação de cards para diversos setores de TI, permitindo criar, del
 
 esse projeto foi desenvolvido com as seguintes tecnologias:
 
-- ReactJs
-- React icons
+- React
+- React-icons
 - uuid
 
 ## 📜 Instalação
