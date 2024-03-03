@@ -3,7 +3,7 @@
 ## <p align="center"> <a href="https://organo-app-mocha.vercel.app/">Clique aqui para ver meu projeto!</a> </p>
 
 ## 💬 Sobre
-Projeto de criação de cards para diversos setores de TI, permitindo criar, deletar, editar os times e favoritar os colaboradores!
+Projeto de criação de cards para diversos setores de TI, permitindo criar, deletar, editar os times e favoritar os colaboradores
 
 ## 💡 Tecnologias:
 
