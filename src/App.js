@@ -1,6 +1,6 @@
 
 import { useState } from 'react';
-import Banner from './components/Banner/Banner';
+import Banner from './components/Banner';
 import Form from './components/Form';
 import Time from './components/Time';
 import Footer from './components/Footer';
@@ -270,7 +270,7 @@ function App() {
   return (
     <div className="App">
 
-      <Banner />
+      <Banner sourceImage='/imagens/banner.png' textAlt='Banner principal da página Organo'/>
       <Form 
         cadastrarTime={cadastrarTime}
         times={times.map(time => time.nome)} 
