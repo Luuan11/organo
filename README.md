@@ -12,6 +12,7 @@ esse projeto foi desenvolvido com as seguintes tecnologias:
 - React
 - React-icons
 - uuid
+- Typescript
 
 ## 📜 Instalação
 
