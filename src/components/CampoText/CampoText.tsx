@@ -15,7 +15,6 @@ const CampoText = (props : CampoTextProps) => {
         props.onType(event.target.value)
     }
 
-
     return (
         <div className="campo-text">
             <label>{props.label}</label>
