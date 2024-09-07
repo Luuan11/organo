@@ -2,7 +2,22 @@ import { FaWindowClose} from "react-icons/fa";
 import { AiFillHeart , AiOutlineHeart } from "react-icons/ai";
 import './Colaborador.css'
 
-const Colaborador = ({colaborador, corBackground, aoDeletar, favoritado}) => {
+interface ColaboradorProps {
+    colaborador: {
+        id: string;
+        nome: string;
+        cargo: string;
+        imagem: string;
+        favorito: boolean;
+    };
+    corBackground: string;
+    aoDeletar: (id: string) => void;
+    favoritado: (id: string) => void;
+}
+
+const Colaborador = (props: ColaboradorProps) => {
+
+    const { colaborador, corBackground, aoDeletar, favoritado } = props;
 
     function favoritar(){
         favoritado(colaborador.id);

@@ -1,5 +1,10 @@
 import "./ListaSuspensa.css"
 
+interface ListProps{
+    onChange: (valor: string) => void
+    
+}
+
 const ListaSuspensa = (props) => {
     return (
         <div className="lista-suspensa">
