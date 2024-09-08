@@ -2,7 +2,7 @@ import "./ListaSuspensa.css"
 
 interface ListProps{
     onChange: (valor: string) => void
-    
+    // a fazer
 }
 
 const ListaSuspensa = (props) => {
