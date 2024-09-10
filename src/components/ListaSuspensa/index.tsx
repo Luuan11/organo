@@ -1,11 +1,15 @@
+import { toBeRequired } from "@testing-library/jest-dom/matchers"
 import "./ListaSuspensa.css"
 
 interface ListProps{
-    onChange: (valor: string) => void
-    // a fazer
+    onTyped: (valor: string) => void
+    label: string
+    required: boolean
+    valor: string
+    itens: string[]
 }
 
-const ListaSuspensa = (props) => {
+const ListaSuspensa = (props: ListProps) => {
     return (
         <div className="lista-suspensa">
             <label>{props.label}</label>
