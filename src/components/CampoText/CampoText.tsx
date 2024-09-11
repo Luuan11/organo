@@ -5,7 +5,8 @@ interface CampoTextProps{
     placeholder: string
     label: string
     value: string
-    mandatory: boolean
+    mandatory?: boolean
+    type?: string
 }
 
 const CampoText = (props : CampoTextProps) => {

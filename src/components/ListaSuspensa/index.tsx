@@ -4,7 +4,7 @@ import "./ListaSuspensa.css"
 interface ListProps{
     onTyped: (valor: string) => void
     label: string
-    required: boolean
+    required?: boolean
     valor: string
     itens: string[]
 }

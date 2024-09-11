@@ -5,8 +5,15 @@ import CampoText from '../CampoText/CampoText'
 import ListaSuspensa from '../ListaSuspensa';
 
 import './Form.css'
+import { iColaborador } from '../shared/interfaces/IColaborador';
 
-const Form = ({aoCadastrar, times ,cadastrarTime}) => {
+interface FormProps{
+    aoCadastrar: (colaborador: iColaborador) => void
+    times: string[]
+    cadastrarTime: (time: { nome: string; cor: string }) => void;
+}
+
+const Form: React.FC<FormProps> = ({ aoCadastrar, times, cadastrarTime }) => {
 
     const [nome, setNome] = useState('') 
     const [cargo, setCargo] = useState('') 
@@ -16,9 +23,8 @@ const Form = ({aoCadastrar, times ,cadastrarTime}) => {
     const [nomeTime, setNomeTime] = useState('')
     const [corTime, setCorTime] = useState('')
 
-    const salvar = (event) => {
+    const salvar = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
-        // console.log('deu certo!')
         aoCadastrar({
             nome,
             cargo,
@@ -33,30 +39,30 @@ const Form = ({aoCadastrar, times ,cadastrarTime}) => {
 
     return (
         <section className="forms">
-            <form onSubmit={salvar}>
+            <form onSubmit={event => salvar(event)}>
                 <h2>Preencha os dados abaixo para gerar um novo card: </h2>
 
                 <CampoText 
                     label="Nome" 
                     placeholder="Digite seu nome" 
-                    required={true}
-                    valor={nome}
-                    onTyped={valor => setNome(valor)}
+                    mandatory={true}
+                    value={nome}
+                    onType={valor => setNome(valor)}
                 />
 
                 <CampoText 
                     label="Cargo" 
                     placeholder="Digite seu cargo" 
-                    required={true}
-                    valor={cargo}
-                    onTyped={valor=> setCargo(valor)}
+                    mandatory={true}
+                    value={cargo}
+                    onType={valor=> setCargo(valor)}
                 />
 
                 <CampoText 
                     label="Imagem" 
                     placeholder="Digite o link da imagem" 
-                    valor={imagem}
-                    onTyped={valor=> setImagem(valor)}
+                    value={imagem}
+                    onType={valor=> setImagem(valor)}
                 />
 
                 <ListaSuspensa 
@@ -81,18 +87,18 @@ const Form = ({aoCadastrar, times ,cadastrarTime}) => {
                 <CampoText 
                     label="Nome" 
                     placeholder="Digite o nome do time" 
-                    required={true}
-                    valor={nomeTime}
-                    onTyped={valor => setNomeTime(valor)}
+                    mandatory={true}
+                    value={nomeTime}
+                    onType={valor => setNomeTime(valor)}
                 />
 
                 <CampoText 
                     label="Cor"
                     type="color"
                     placeholder="Digite a cor do time"
-                    required={true}
-                    valor={corTime}
-                    onTyped={valor=> setCorTime(valor)}
+                    mandatory={true}
+                    value={corTime}
+                    onType={valor=> setCorTime(valor)}
                 />
 
                 <Button>
