@@ -1,4 +1,3 @@
-import { toBeRequired } from "@testing-library/jest-dom/matchers"
 import "./ListaSuspensa.css"
 
 interface ListProps{

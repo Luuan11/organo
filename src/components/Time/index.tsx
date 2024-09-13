@@ -1,6 +1,6 @@
-import Colaborador from "../Colaborador"
+import Colaborador from "../Colaborador";
 import hexToRgba from 'hex-to-rgba';
-import "./Time.css"
+import "./Time.css";
 
 interface TimeProps {
     time: {
@@ -23,27 +23,38 @@ interface TimeProps {
 const Time = (props: TimeProps) => {
     const { time, colaboradores, aoDeletar, mudarCor, favoritado } = props;
     
-    const backgroundColorRGBA = {backgroundColor: hexToRgba(time.cor, '0.6')}
-    // const corPrimaria = { borderColor: time.corPrimaria }
+    // Configurando a cor de fundo com rgba
+    const backgroundColorRGBA = { backgroundColor: hexToRgba(time.cor, '0.6') };
 
     return (
-        colaboradores.length > 0 && <section className="time" style={backgroundColorRGBA}>
-            <input value={time.cor} onChange={event => mudarCor(event.target.value, time.id)} type="color" className="input-changeColor" />
-            <h3 style={{ borderColor: time.cor }}>{time.nome}</h3>
-            <div className='colaboradores'>
-                {colaboradores.map((colaborador, indice) => {
-                    return (
-                    <Colaborador 
-                        key={indice}
-                        colaborador={colaborador} 
-                        corBackground={time.cor}
-                        aoDeletar ={aoDeletar} 
-                        favoritado={favoritado}/>
-                    );
-                })}
-            </div>
-        </section>
-    )
+        colaboradores.length > 0 ? (
+            <section className="time" style={backgroundColorRGBA}>
+                {/* Input para alterar a cor */}
+                <input 
+                    value={time.cor} 
+                    onChange={event => mudarCor(event.target.value, time.id)} 
+                    type="color" 
+                    className="input-changeColor" 
+                />
+                
+                {/* Título com borda colorida */}
+                <h3 style={{ borderColor: time.cor }}>{time.nome}</h3>
+                
+                {/* Lista de Colaboradores */}
+                <div className='colaboradores'>
+                    {colaboradores.map((colaborador, indice) => (
+                        <Colaborador 
+                            key={colaborador.id} // Usando o ID como key, que é único
+                            colaborador={colaborador} 
+                            corBackground={time.cor}
+                            aoDeletar={aoDeletar} 
+                            favoritado={favoritado}
+                        />
+                    ))}
+                </div>
+            </section>
+        ) : null // Retorna null se não houver colaboradores
+    );
 }
 
-export default Time
+export default Time;
