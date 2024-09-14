@@ -9,7 +9,7 @@ Projeto de criação de cards para diversos setores de TI, permitindo criar, del
 
 esse projeto foi desenvolvido com as seguintes tecnologias:
 
-- React
+- React tsx
 - React-icons
 - uuid
 - Typescript
