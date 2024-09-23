@@ -13,6 +13,7 @@ esse projeto foi desenvolvido com as seguintes tecnologias:
 - React-icons
 - uuid
 - Typescript
+- Vercel
 
 ## 📜 Instalação
 
