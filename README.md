@@ -4,6 +4,7 @@
 
 ## 💬 Sobre
 Projeto de criação de cards para diversos setores de TI, permitindo criar, deletar, editar os times e favoritar os colaboradores
+Obs: Inicialmente feito em JS e depois migrado para TS
 
 ## 💡 Tecnologias:
 
