@@ -1,326 +1,124 @@
-import { useState } from "react";
-import Banner from "./components/Banner";
-import Form from "./components/Form";
-import Time from "./components/Time";
-import Footer from "./components/Footer";
-import { v4 as uuidv4 } from "uuid";
-import { iColaborador } from "./components/shared/interfaces/IColaborador";
+import { useState, useCallback, useMemo } from "react"
+import ErrorBoundary from "./components/ErrorBoundary"
+import Form from "./components/Form"
+import Team from "./components/Team"
+import Footer from "./components/Footer"
+import { Employee, EmployeeWithId, Team as TeamType } from "./components/shared/interfaces"
 
-interface TimeType {
-  id: string;
-  nome: string;
-  cor: string;
+const INITIAL_TEAMS: Omit<TeamType, "id">[] = [
+  { name: "Programming", color: "#57C278" },
+  { name: "Front-End", color: "#82CFFA" },
+  { name: "Data Science", color: "#A6D157" },
+  { name: "DevOps", color: "#E06B69" },
+  { name: "UX & Design", color: "#DB6EBF" },
+  { name: "Mobile", color: "#FFBA05" },
+  { name: "Innovation & Management", color: "#FF8A29" },
+]
+
+const createInitialEmployees = (teams: TeamType[]): EmployeeWithId[] => {
+  const employeeData = [
+    { name: "JULIANA AMOASEI", role: "Software Developer and Instructor", imageUrl: "https://www.alura.com.br/assets/img/lideres/juliana-amoasei.1647533644.jpeg" },
+    { name: "DANIEL ARTINE", role: "Software Engineer at Stone Age", imageUrl: "https://www.alura.com.br/assets/img/lideres/daniel-artine.1647533644.jpeg" },
+    { name: "GUILHERME LIMA", role: "Python and JavaScript Developer", imageUrl: "https://www.alura.com.br/assets/img/lideres/guilherme-lima.1647533644.jpeg" },
+    { name: "PAULO SILVEIRA", role: "Hipster and CEO", imageUrl: "https://www.alura.com.br/assets/img/lideres/paulo-silveira.1647533644.jpeg" },
+  ]
+
+  return teams.slice(0, 6).flatMap((team) =>
+    employeeData.map((employee) => ({
+      ...employee,
+      id: crypto.randomUUID(),
+      isFavorite: false,
+      team: team.name,
+    }))
+  )
 }
-
-interface ColaboradorType {
-  id: string;
-  favorito: boolean;
-  nome: string;
-  cargo: string;
-  imagem: string;
-  time: string;
-}
-
 
 const App: React.FC = () => {
-  const [times, setTimes] = useState<TimeType[]>([
-    { id: uuidv4(), nome: "Programação", cor: "#57C278" },
-    { id: uuidv4(), nome: "Front-End", cor: "#82CFFA" },
-    { id: uuidv4(), nome: "Data Science", cor: "#A6D157" },
-    { id: uuidv4(), nome: "Devops", cor: "#E06B69" },
-    { id: uuidv4(), nome: "UX e Design", cor: "#DB6EBF" },
-    { id: uuidv4(), nome: "Mobile", cor: "#FFBA05" },
-    { id: uuidv4(), nome: "Inovação e Gestão", cor: "#FF8A29" },
-  ]);
+  const [teams, setTeams] = useState<TeamType[]>(() =>
+    INITIAL_TEAMS.map((team) => ({ ...team, id: crypto.randomUUID() }))
+  )
 
-  const inicial: ColaboradorType[] = [
-    {
-      id: uuidv4(),
-      favorito: false,
-      nome: "JULIANA AMOASEI",
-      cargo: "Desenvolvedora de software e instrutora",
-      imagem:
-        "https://www.alura.com.br/assets/img/lideres/juliana-amoasei.1647533644.jpeg",
-      time: times[0].nome,
-    },
-    {
-      id: uuidv4(),
-      favorito: false,
-      nome: "DANIEL ARTINE",
-      cargo: "Engenheiro de Software na Stone Age",
-      imagem:
-        "https://www.alura.com.br/assets/img/lideres/daniel-artine.1647533644.jpeg",
-      time: times[0].nome,
-    },
-    {
-      id: uuidv4(),
-      favorito: false,
-      nome: "GUILHERME LIMA",
-      cargo: "Desenvolvedor Python e JavaScript na Alura",
-      imagem:
-        "https://www.alura.com.br/assets/img/lideres/guilherme-lima.1647533644.jpeg",
-      time: times[0].nome,
-    },
-    {
-      id: uuidv4(),
-      favorito: false,
-      nome: "PAULO SILVEIRA",
-      cargo: "Hipster e CEO da Alura",
-      imagem:
-        "https://www.alura.com.br/assets/img/lideres/paulo-silveira.1647533644.jpeg",
-      time: times[0].nome,
-    },
-    {
-      id: uuidv4(),
-      favorito: false,
-      nome: "JULIANA AMOASEI",
-      cargo: "Desenvolvedora de software e instrutora",
-      imagem:
-        "https://www.alura.com.br/assets/img/lideres/juliana-amoasei.1647533644.jpeg",
-      time: times[1].nome,
-    },
-    {
-      id: uuidv4(),
-      favorito: false,
-      nome: "DANIEL ARTINE",
-      cargo: "Engenheiro de Software na Stone Age",
-      imagem:
-        "https://www.alura.com.br/assets/img/lideres/daniel-artine.1647533644.jpeg",
-      time: times[1].nome,
-    },
-    {
-      id: uuidv4(),
-      favorito: false,
-      nome: "GUILHERME LIMA",
-      cargo: "Desenvolvedor Python e JavaScript na Alura",
-      imagem:
-        "https://www.alura.com.br/assets/img/lideres/guilherme-lima.1647533644.jpeg",
-      time: times[1].nome,
-    },
-    {
-      id: uuidv4(),
-      favorito: false,
-      nome: "PAULO SILVEIRA",
-      cargo: "Hipster e CEO da Alura",
-      imagem:
-        "https://www.alura.com.br/assets/img/lideres/paulo-silveira.1647533644.jpeg",
-      time: times[1].nome,
-    },
-    {
-      id: uuidv4(),
-      favorito: false,
-      nome: "JULIANA AMOASEI",
-      cargo: "Desenvolvedora de software e instrutora",
-      imagem:
-        "https://www.alura.com.br/assets/img/lideres/juliana-amoasei.1647533644.jpeg",
-      time: times[2].nome,
-    },
-    {
-      id: uuidv4(),
-      favorito: false,
-      nome: "DANIEL ARTINE",
-      cargo: "Engenheiro de Software na Stone Age",
-      imagem:
-        "https://www.alura.com.br/assets/img/lideres/daniel-artine.1647533644.jpeg",
-      time: times[2].nome,
-    },
-    {
-      id: uuidv4(),
-      favorito: false,
-      nome: "GUILHERME LIMA",
-      cargo: "Desenvolvedor Python e JavaScript na Alura",
-      imagem:
-        "https://www.alura.com.br/assets/img/lideres/guilherme-lima.1647533644.jpeg",
-      time: times[2].nome,
-    },
-    {
-      id: uuidv4(),
-      favorito: false,
-      nome: "PAULO SILVEIRA",
-      cargo: "Hipster e CEO da Alura",
-      imagem:
-        "https://www.alura.com.br/assets/img/lideres/paulo-silveira.1647533644.jpeg",
-      time: times[2].nome,
-    },
-    {
-      id: uuidv4(),
-      favorito: false,
-      nome: "JULIANA AMOASEI",
-      cargo: "Desenvolvedora de software e instrutora",
-      imagem:
-        "https://www.alura.com.br/assets/img/lideres/juliana-amoasei.1647533644.jpeg",
-      time: times[3].nome,
-    },
-    {
-      id: uuidv4(),
-      favorito: false,
-      nome: "DANIEL ARTINE",
-      cargo: "Engenheiro de Software na Stone Age",
-      imagem:
-        "https://www.alura.com.br/assets/img/lideres/daniel-artine.1647533644.jpeg",
-      time: times[3].nome,
-    },
-    {
-      id: uuidv4(),
-      favorito: false,
-      nome: "GUILHERME LIMA",
-      cargo: "Desenvolvedor Python e JavaScript na Alura",
-      imagem:
-        "https://www.alura.com.br/assets/img/lideres/guilherme-lima.1647533644.jpeg",
-      time: times[3].nome,
-    },
-    {
-      id: uuidv4(),
-      favorito: false,
-      nome: "PAULO SILVEIRA",
-      cargo: "Hipster e CEO da Alura",
-      imagem:
-        "https://www.alura.com.br/assets/img/lideres/paulo-silveira.1647533644.jpeg",
-      time: times[3].nome,
-    },
-    {
-      id: uuidv4(),
-      favorito: false,
-      nome: "JULIANA AMOASEI",
-      cargo: "Desenvolvedora de software e instrutora",
-      imagem:
-        "https://www.alura.com.br/assets/img/lideres/juliana-amoasei.1647533644.jpeg",
-      time: times[4].nome,
-    },
-    {
-      id: uuidv4(),
-      favorito: false,
-      nome: "DANIEL ARTINE",
-      cargo: "Engenheiro de Software na Stone Age",
-      imagem:
-        "https://www.alura.com.br/assets/img/lideres/daniel-artine.1647533644.jpeg",
-      time: times[4].nome,
-    },
-    {
-      id: uuidv4(),
-      favorito: false,
-      nome: "GUILHERME LIMA",
-      cargo: "Desenvolvedor Python e JavaScript na Alura",
-      imagem:
-        "https://www.alura.com.br/assets/img/lideres/guilherme-lima.1647533644.jpeg",
-      time: times[4].nome,
-    },
-    {
-      id: uuidv4(),
-      favorito: false,
-      nome: "PAULO SILVEIRA",
-      cargo: "Hipster e CEO da Alura",
-      imagem:
-        "https://www.alura.com.br/assets/img/lideres/paulo-silveira.1647533644.jpeg",
-      time: times[4].nome,
-    },
-    {
-      id: uuidv4(),
-      favorito: false,
-      nome: "JULIANA AMOASEI",
-      cargo: "Desenvolvedora de software e instrutora",
-      imagem:
-        "https://www.alura.com.br/assets/img/lideres/juliana-amoasei.1647533644.jpeg",
-      time: times[5].nome,
-    },
-    {
-      id: uuidv4(),
-      favorito: false,
-      nome: "DANIEL ARTINE",
-      cargo: "Engenheiro de Software na Stone Age",
-      imagem:
-        "https://www.alura.com.br/assets/img/lideres/daniel-artine.1647533644.jpeg",
-      time: times[5].nome,
-    },
-    {
-      id: uuidv4(),
-      favorito: false,
-      nome: "GUILHERME LIMA",
-      cargo: "Desenvolvedor Python e JavaScript na Alura",
-      imagem:
-        "https://www.alura.com.br/assets/img/lideres/guilherme-lima.1647533644.jpeg",
-      time: times[5].nome,
-    },
-    {
-      id: uuidv4(),
-      favorito: false,
-      nome: "PAULO SILVEIRA",
-      cargo: "Hipster e CEO da Alura",
-      imagem:
-        "https://www.alura.com.br/assets/img/lideres/paulo-silveira.1647533644.jpeg",
-      time: times[5].nome,
-    },
-  ];
+  const [employees, setEmployees] = useState<EmployeeWithId[]>(() =>
+    createInitialEmployees(teams)
+  )
 
-  const [colaboradores, setColaboradores] =
-    useState<ColaboradorType[]>(inicial);
+  const teamNames = useMemo(() => teams.map((team) => team.name), [teams])
 
-  function ChangeColor(cor: string, id: string) {
-    setTimes(
-      times.map((time) => {
-        if (time.id === id) {
-          time.cor = cor;
-        }
-        return time;
-      })
-    );
-  }
+  const handleColorChange = useCallback((color: string, teamId: string) => {
+    setTeams((prevTeams) =>
+      prevTeams.map((team) =>
+        team.id === teamId ? { ...team, color } : team
+      )
+    )
+  }, [])
 
-  function deleteColaborador(id: string) {
-    setColaboradores(
-      colaboradores.filter((colaborador) => colaborador.id !== id)
-    );
-  }
+  const handleDeleteEmployee = useCallback((employeeId: string) => {
+    setEmployees((prevEmployees) =>
+      prevEmployees.filter((employee) => employee.id !== employeeId)
+    )
+  }, [])
 
-  function cadastrarTime(novoTime: Omit<TimeType, "id">) {
-    setTimes([...times, { ...novoTime, id: uuidv4() }]);
-  }
+  const handleCreateTeam = useCallback((newTeam: Omit<TeamType, "id">) => {
+    setTeams((prevTeams) => [...prevTeams, { ...newTeam, id: crypto.randomUUID() }])
+  }, [])
 
-  function favoritos(id: string) {
-    setColaboradores(
-      colaboradores.map((colaborador) => {
-        if (colaborador.id === id) colaborador.favorito = !colaborador.favorito;
-        return colaborador;
-      })
-    );
-  }
+  const handleToggleFavorite = useCallback((employeeId: string) => {
+    setEmployees((prevEmployees) =>
+      prevEmployees.map((employee) =>
+        employee.id === employeeId
+          ? { ...employee, isFavorite: !employee.isFavorite }
+          : employee
+      )
+    )
+  }, [])
+
+  const handleRegisterEmployee = useCallback((employee: Employee) => {
+    const teamName = employee.team ?? teams[0]?.name ?? ""
+    setEmployees((prevEmployees) => [
+      ...prevEmployees,
+      {
+        ...employee,
+        id: crypto.randomUUID(),
+        isFavorite: false,
+        team: teamName,
+      },
+    ])
+  }, [teams])
+
+  const getEmployeesByTeam = useCallback(
+    (teamName: string) =>
+      employees.filter((employee) => employee.team === teamName),
+    [employees]
+  )
 
   return (
-    <div className="App">
-      <Banner
-        sourceImage="/imagens/banner.png"
-        textAlt="Banner principal da página Organo"
-      />
-      <Form
-        cadastrarTime={cadastrarTime}
-        times={times.map((time) => time.nome)}
-        aoCadastrar={(colaborador: iColaborador) => {
-          const timeValido = colaborador.time ?? times[0].nome;
-          setColaboradores([
-            ...colaboradores,
-            { ...colaborador, id: uuidv4(), favorito: false, time: timeValido },
-          ]);
-        }}
-      />
+    <ErrorBoundary>
+      <div className="App">
+        <header className="app-header">
+          <img src="/imagens/logo.png" alt="Organo logo" />
+        </header>
+        <Form
+          onCreateTeam={handleCreateTeam}
+          teamNames={teamNames}
+          onRegisterEmployee={handleRegisterEmployee}
+        />
+        <section className="times">
+          <h1>My Organization</h1>
+          {teams.map((team) => (
+            <Team
+              key={team.id}
+              team={team}
+              employees={getEmployeesByTeam(team.name)}
+              onColorChange={handleColorChange}
+              onDeleteEmployee={handleDeleteEmployee}
+              onToggleFavorite={handleToggleFavorite}
+            />
+          ))}
+        </section>
+        <Footer />
+      </div>
+    </ErrorBoundary>
+  )
+}
 
-      <section className="times">
-        <h1>Minha organização</h1>
-        {times.map((time, indice) => (
-          <Time
-            mudarCor={ChangeColor}
-            favoritado={favoritos}
-            key={indice}
-            time={time}
-            colaboradores={colaboradores.filter(
-              (colaborador) => colaborador.time === time.nome
-            )}
-            aoDeletar={deleteColaborador}
-          />
-        ))}
-      </section>
-      <Footer />
-    </div>
-  );
-};
-
-export default App;
+export default App

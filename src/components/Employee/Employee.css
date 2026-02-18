@@ -1,0 +1,59 @@
+.employee-card {
+    width: 280px;
+    position: relative;
+}
+
+.employee-card .header {
+    background-color: #F0F0F0;
+    border-radius: 0.625rem 0.625rem 0 0;
+}
+
+.employee-card img {
+    width: 100px;
+    border-radius: 50%;
+    position: relative;
+    bottom: -50px;
+}
+
+.employee-card .footer {
+    background: #FFFFFF;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.08);
+    border-radius: 0 0 0.625rem 0.625rem;
+    padding-top: 5.5rem;
+    padding-bottom: 2.5rem;
+}
+
+.employee-card .footer h4 {
+    color: #6278F7;
+    font-size: var(--font-base);
+    line-height: 1.4;
+    font-weight: 600;
+    margin: 0 0 0.5rem;
+}
+
+.employee-card .footer h5 {
+    font-size: var(--font-sm);
+    line-height: 1.4;
+    color: #555;
+    font-weight: 400;
+    padding: 0 1rem;
+    margin: 0;
+}
+
+.employee-card .delete-btn {
+    position: absolute;
+    right: -0.625rem;
+    top: -0.625rem;
+    cursor: pointer;
+    color: #E06B69;
+    transition: transform 0.2s;
+}
+
+.employee-card .delete-btn:hover {
+    transform: scale(1.1);
+}
+
+.employee-card .favorite {
+    margin-top: 1.5rem;
+    cursor: pointer;
+}
