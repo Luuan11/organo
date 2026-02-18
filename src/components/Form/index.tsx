@@ -1,111 +1,184 @@
-import { useState } from 'react';
+import { useState, useCallback, FormEvent } from "react"
+import { ZodError } from "zod"
+import Button from "../Button"
+import TextField from "../TextField"
+import Dropdown from "../Dropdown"
+import { Employee } from "../shared/interfaces"
+import { employeeSchema, teamSchema } from "../../lib/validation"
+import "./Form.css"
 
-import Button from '../Button';
-import CampoText from '../CampoText/CampoText'
-import ListaSuspensa from '../ListaSuspensa';
+type ActiveTab = "employee" | "team"
 
-import './Form.css'
-import { iColaborador } from '../shared/interfaces/IColaborador';
-
-interface FormProps{
-    aoCadastrar: (colaborador: iColaborador) => void
-    times: string[]
-    cadastrarTime: (time: { nome: string; cor: string }) => void;
+interface FormProps {
+  onRegisterEmployee: (employee: Employee) => void
+  teamNames: string[]
+  onCreateTeam: (team: { name: string; color: string }) => void
 }
 
-const Form: React.FC<FormProps> = ({ aoCadastrar, times, cadastrarTime }) => {
+interface FormErrors {
+  [key: string]: string
+}
 
-    const [nome, setNome] = useState('') 
-    const [cargo, setCargo] = useState('') 
-    const [imagem, setImagem] = useState('')
-    const [time, setTime] = useState('')
+const Form: React.FC<FormProps> = ({ onRegisterEmployee, teamNames, onCreateTeam }) => {
+  const [activeTab, setActiveTab] = useState<ActiveTab>("employee")
+  const [name, setName] = useState("")
+  const [role, setRole] = useState("")
+  const [imageUrl, setImageUrl] = useState("")
+  const [selectedTeam, setSelectedTeam] = useState("")
+  const [employeeErrors, setEmployeeErrors] = useState<FormErrors>({})
 
-    const [nomeTime, setNomeTime] = useState('')
-    const [corTime, setCorTime] = useState('')
+  const [teamName, setTeamName] = useState("")
+  const [teamColor, setTeamColor] = useState("#6278F7")
+  const [teamErrors, setTeamErrors] = useState<FormErrors>({})
 
-    const salvar = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault()
-        aoCadastrar({
-            nome,
-            cargo,
-            imagem,
-            time
+  const resetEmployeeForm = useCallback(() => {
+    setName("")
+    setRole("")
+    setImageUrl("")
+    setSelectedTeam("")
+    setEmployeeErrors({})
+  }, [])
+
+  const resetTeamForm = useCallback(() => {
+    setTeamName("")
+    setTeamColor("#6278F7")
+    setTeamErrors({})
+  }, [])
+
+  const handleEmployeeSubmit = useCallback(
+    (event: FormEvent<HTMLFormElement>) => {
+      event.preventDefault()
+      setEmployeeErrors({})
+
+      try {
+        const validData = employeeSchema.parse({
+          name,
+          role,
+          imageUrl,
+          team: selectedTeam,
         })
-        setNome('')
-        setCargo('')
-        setImagem('')
-        setTime('')
-    }
+        onRegisterEmployee(validData)
+        resetEmployeeForm()
+      } catch (error) {
+        if (error instanceof ZodError) {
+          const errors: FormErrors = {}
+          error.errors.forEach((err) => {
+            if (err.path[0]) {
+              errors[err.path[0] as string] = err.message
+            }
+          })
+          setEmployeeErrors(errors)
+        }
+      }
+    },
+    [name, role, imageUrl, selectedTeam, onRegisterEmployee, resetEmployeeForm]
+  )
 
-    return (
-        <section className="forms">
-            <form onSubmit={event => salvar(event)}>
-                <h2>Preencha os dados abaixo para gerar um novo card: </h2>
+  const handleTeamSubmit = useCallback(
+    (event: FormEvent<HTMLFormElement>) => {
+      event.preventDefault()
+      setTeamErrors({})
 
-                <CampoText 
-                    label="Nome" 
-                    placeholder="Digite seu nome" 
-                    mandatory={true}
-                    value={nome}
-                    onType={valor => setNome(valor)}
-                />
+      try {
+        const validData = teamSchema.parse({ name: teamName, color: teamColor })
+        onCreateTeam(validData)
+        resetTeamForm()
+      } catch (error) {
+        if (error instanceof ZodError) {
+          const errors: FormErrors = {}
+          error.errors.forEach((err) => {
+            if (err.path[0]) {
+              errors[err.path[0] as string] = err.message
+            }
+          })
+          setTeamErrors(errors)
+        }
+      }
+    },
+    [teamName, teamColor, onCreateTeam, resetTeamForm]
+  )
 
-                <CampoText 
-                    label="Cargo" 
-                    placeholder="Digite seu cargo" 
-                    mandatory={true}
-                    value={cargo}
-                    onType={valor=> setCargo(valor)}
-                />
+  return (
+    <section className="forms">
+      <nav className="form-tabs">
+        <button
+          type="button"
+          className={`tab ${activeTab === "employee" ? "active" : ""}`}
+          onClick={() => setActiveTab("employee")}
+        >
+          New Employee
+        </button>
+        <button
+          type="button"
+          className={`tab ${activeTab === "team" ? "active" : ""}`}
+          onClick={() => setActiveTab("team")}
+        >
+          New Team
+        </button>
+      </nav>
 
-                <CampoText 
-                    label="Imagem" 
-                    placeholder="Digite o link da imagem" 
-                    value={imagem}
-                    onType={valor=> setImagem(valor)}
-                />
+      {activeTab === "employee" && (
+        <form onSubmit={handleEmployeeSubmit} noValidate>
+          <TextField
+            label="Name"
+            placeholder="Enter employee name"
+            value={name}
+            onType={setName}
+            error={employeeErrors.name}
+          />
 
-                <ListaSuspensa 
-                    label="Item" 
-                    itens={times} 
-                    required={true}
-                    valor={time}
-                    onTyped={valor=> setTime(valor)}
-                />
+          <TextField
+            label="Role"
+            placeholder="Enter employee role"
+            value={role}
+            onType={setRole}
+            error={employeeErrors.role}
+          />
 
-                <Button>
-                    Criar card
-                </Button>
-            </form>
+          <TextField
+            label="Image URL"
+            placeholder="Enter the image URL"
+            value={imageUrl}
+            onType={setImageUrl}
+            error={employeeErrors.imageUrl}
+          />
 
-            <form onSubmit={(event) => {event.preventDefault()
-                cadastrarTime({ nome: nomeTime, cor: corTime })
-            }}>
+          <Dropdown
+            label="Team"
+            items={teamNames}
+            value={selectedTeam}
+            onChange={setSelectedTeam}
+            error={employeeErrors.team}
+          />
 
-                <h2>Preencha os dados para criar um novo time.</h2>
+          <Button>Create Employee</Button>
+        </form>
+      )}
 
-                <CampoText 
-                    label="Nome" 
-                    placeholder="Digite o nome do time" 
-                    mandatory={true}
-                    value={nomeTime}
-                    onType={valor => setNomeTime(valor)}
-                />
+      {activeTab === "team" && (
+        <form onSubmit={handleTeamSubmit} noValidate>
+          <TextField
+            label="Name"
+            placeholder="Enter the team name"
+            value={teamName}
+            onType={setTeamName}
+            error={teamErrors.name}
+          />
 
-                <CampoText 
-                    label="Cor"
-                    type="color"
-                    placeholder="Digite a cor do time"
-                    mandatory={true}
-                    value={corTime}
-                    onType={valor=> setCorTime(valor)}
-                />
+          <TextField
+            label="Color"
+            type="color"
+            placeholder="Choose the team color"
+            value={teamColor}
+            onType={setTeamColor}
+            error={teamErrors.color}
+          />
 
-                <Button>
-                    Criar time
-                </Button>
-            </form>
-        </section>
-    )
+          <Button>Create Team</Button>
+        </form>
+      )}
+    </section>
+  )
 }
-export default Form;
+
+export default Form

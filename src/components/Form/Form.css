@@ -1,15 +1,55 @@
 .forms {
     display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin: 80px 50px;
+    flex-direction: column;
+    align-items: center;
+    margin: 40px 50px 80px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-.forms form{
-    background-color: #f2f2f2;
-    border-radius: 20px;
-    padding: 36px 64px;
-    box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.08);
+.form-tabs {
+    display: flex;
+    gap: 0;
+    margin-bottom: 0;
+    width: 100%;
+}
+
+.form-tabs .tab {
     flex: 1;
+    padding: 0.875rem 1.5rem;
+    border: none;
+    background-color: #e0e0e0;
+    cursor: pointer;
+    font-size: var(--font-sm);
+    font-weight: 600;
+    color: #666;
+    transition: all 0.3s ease;
+    border-radius: 1.25rem 1.25rem 0 0;
+}
+
+.form-tabs .tab:first-child {
+    border-radius: 20px 0 0 0;
+}
+
+.form-tabs .tab:last-child {
+    border-radius: 0 20px 0 0;
+}
+
+.form-tabs .tab:hover {
+    background-color: #d0d0d0;
+}
+
+.form-tabs .tab.active {
+    background-color: #6278F7;
+    color: white;
+}
+
+.forms form {
+    background-color: #f2f2f2;
+    border-radius: 0 0 1.25rem 1.25rem;
+    padding: 2rem 3rem;
+    box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.08);
+    width: 100%;
+    box-sizing: border-box;
 }

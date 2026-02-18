@@ -1,8 +1,8 @@
-.campo-text {
+.text-field {
     margin: 1.25rem 0;
 }
 
-.campo-text label {
+.text-field label {
     display: block;
     margin-bottom: 0.5rem;
     font-size: var(--font-sm);
@@ -10,25 +10,38 @@
     color: #333;
 }
 
-.campo-text input {
+.text-field input {
     background-color: #fff;
     box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.06);
     width: 100%;
     box-sizing: border-box;
     font-size: var(--font-base);
     padding: 0.875rem 1rem;
-    border: none;
+    border: 2px solid transparent;
     border-radius: 0.5rem;
     outline: none;
     font-family: inherit;
+    transition: border-color 0.2s, box-shadow 0.2s;
 }
 
-.campo-text input:focus {
+.text-field input:focus {
     box-shadow: 0 0 0 2px #6278F7;
 }
 
-.campo-text input[type=color] {
+.text-field input[type=color] {
     height: 3rem;
     padding: 0.25rem 1rem;
     cursor: pointer;
+}
+
+.text-field.has-error input {
+    border-color: #E06B69;
+    box-shadow: none;
+}
+
+.text-field .error-message {
+    display: block;
+    color: #E06B69;
+    font-size: var(--font-xs);
+    margin-top: 0.375rem;
 }
