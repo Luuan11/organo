@@ -1,31 +1,43 @@
-![preview](https://github.com/Luuan11/organo/assets/79935555/c950c13f-e4b6-4dac-b1b9-77adac24f2a2)
+## 👀 Images Preview 
 
-## <p align="center"> <a href="https://organo-app-mocha.vercel.app/">Clique aqui para ver meu projeto!</a> </p>
+- New Employee
+<img width="1892" height="899" alt="image" src="https://github.com/user-attachments/assets/8adb980b-373f-4932-945c-84f911000533" />
 
-## 💬 Sobre
-Projeto de criação de cards para diversos setores de TI, permitindo criar, deletar, editar os times e favoritar os colaboradores
-Obs: Inicialmente feito em JS e depois migrado para TS
+- New Team
+<img width="1894" height="665" alt="image" src="https://github.com/user-attachments/assets/7437c41b-f441-42fe-989d-d8f76eaf3d84" />
 
-## 💡 Tecnologias:
+### <p align="center"> <a href="https://organo-app-mocha.vercel.app/">Click here to preview the app!</a> </p>
 
-esse projeto foi desenvolvido com as seguintes tecnologias:
+## 💬 About
+Organo is a modern and intuitive web application designed to help IT organizations visually manage their teams and collaborators. With Organo, you can easily create, edit, and delete teams, as well as add, favorite, and manage collaborators within each team.
 
-- React tsx
+## 💡 Technologies:
+
+- React Typescript
 - React-icons
 - uuid
 - Typescript
 - Vercel
 
-## 📜 Instalação
+## ✨ Features
 
-    - Clonar repositorio 
+- Create, edit, and delete teams
+- Add, edit, favorite, and remove collaborators
+- Dynamic dropdowns for team selection
+- TypeScript support for type safety
+
+---
+
+## 📜 Installion
+
+    - Clone repo 
     $ git clone https://github.com/Luuan11/organo.git 
 
-    - Instalar dependencias
-    $ yarn install OU npm install
+    - Install dependencies
+    $ npm install
 
-    - Rodar aplicativo
-    $ yarn dev OU npm dev
+    - Run app
+    $ npm dev
 
 ---
 Made with 💜 by [Luan Fernando](https://www.linkedin.com/in/luan-fernando/).
